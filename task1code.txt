@@ -1,0 +1,18 @@
+import shutil
+#from datetime import date
+from datetime import datetime
+import os
+import sys
+os.chdir(sys.path[0])
+def Backup(source,destination):
+    today = datetime.now()
+    date_time = today.strftime("%m_%d_%Y_%H_%M_%S")
+    destination=destination+"/"+date_time
+    if not os.path.exists(destination):
+        shutil.copytree(source,destination)
+        for files in os.listdir(source):
+            path=os.path.join(source,files)
+            try:
+                shutil.rmtree(path)
+            except OSError:
+                os.remove(path)
